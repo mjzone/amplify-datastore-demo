@@ -1,0 +1,5 @@
+type Task @model {
+  id: ID!
+  task: String!
+  isCompleted: Boolean
+}
