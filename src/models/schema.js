@@ -1,9 +1,9 @@
 export const schema = {
     "models": {
-        "Task": {
+        "Todo": {
             "syncable": true,
-            "name": "Task",
-            "pluralName": "Tasks",
+            "name": "Todo",
+            "pluralName": "Todos",
             "attributes": [
                 {
                     "type": "model",
@@ -29,5 +29,5 @@ export const schema = {
         }
     },
     "enums": {},
-    "version": "f9e2a6e2e7a3f0284642c4f9d2864b89"
+    "version": "0b255ef20f08ae31b36bf8b58ed6cc4f"
 };

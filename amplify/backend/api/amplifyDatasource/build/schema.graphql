@@ -1,5 +1,5 @@
-type Task {
-  id: String!
+type Todo {
+  id: ID!
   task: String!
   _version: Int!
   _deleted: Boolean
@@ -11,8 +11,8 @@ enum ModelSortDirection {
   DESC
 }
 
-type ModelTaskConnection {
-  items: [Task]
+type ModelTodoConnection {
+  items: [Todo]
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -90,48 +90,48 @@ input ModelSizeInput {
   between: [Int]
 }
 
-input ModelTaskFilterInput {
-  id: ModelStringInput
+input ModelTodoFilterInput {
+  id: ModelIDInput
   task: ModelStringInput
-  and: [ModelTaskFilterInput]
-  or: [ModelTaskFilterInput]
-  not: ModelTaskFilterInput
+  and: [ModelTodoFilterInput]
+  or: [ModelTodoFilterInput]
+  not: ModelTodoFilterInput
 }
 
 type Query {
-  syncTasks(filter: ModelTaskFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelTaskConnection
-  getTask(id: ID!): Task
-  listTasks(filter: ModelTaskFilterInput, limit: Int, nextToken: String): ModelTaskConnection
+  syncTodos(filter: ModelTodoFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelTodoConnection
+  getTodo(id: ID!): Todo
+  listTodos(filter: ModelTodoFilterInput, limit: Int, nextToken: String): ModelTodoConnection
 }
 
-input CreateTaskInput {
+input CreateTodoInput {
   id: ID
   task: String!
   _version: Int
 }
 
-input UpdateTaskInput {
-  id: String!
+input UpdateTodoInput {
+  id: ID!
   task: String
   _version: Int
 }
 
-input DeleteTaskInput {
+input DeleteTodoInput {
   id: ID
   _version: Int
 }
 
 type Mutation {
-  createTask(input: CreateTaskInput!, condition: ModelTaskConditionInput): Task
-  updateTask(input: UpdateTaskInput!, condition: ModelTaskConditionInput): Task
-  deleteTask(input: DeleteTaskInput!, condition: ModelTaskConditionInput): Task
+  createTodo(input: CreateTodoInput!, condition: ModelTodoConditionInput): Todo
+  updateTodo(input: UpdateTodoInput!, condition: ModelTodoConditionInput): Todo
+  deleteTodo(input: DeleteTodoInput!, condition: ModelTodoConditionInput): Todo
 }
 
-input ModelTaskConditionInput {
+input ModelTodoConditionInput {
   task: ModelStringInput
-  and: [ModelTaskConditionInput]
-  or: [ModelTaskConditionInput]
-  not: ModelTaskConditionInput
+  and: [ModelTodoConditionInput]
+  or: [ModelTodoConditionInput]
+  not: ModelTodoConditionInput
 }
 
 enum ModelAttributeTypes {
@@ -148,7 +148,7 @@ enum ModelAttributeTypes {
 }
 
 type Subscription {
-  onCreateTask: Task @aws_subscribe(mutations: ["createTask"])
-  onUpdateTask: Task @aws_subscribe(mutations: ["updateTask"])
-  onDeleteTask: Task @aws_subscribe(mutations: ["deleteTask"])
+  onCreateTodo: Todo @aws_subscribe(mutations: ["createTodo"])
+  onUpdateTodo: Todo @aws_subscribe(mutations: ["updateTodo"])
+  onDeleteTodo: Todo @aws_subscribe(mutations: ["deleteTodo"])
 }

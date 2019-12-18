@@ -86,7 +86,7 @@
         }
     },
     "Resources": {
-        "TaskTable": {
+        "TodoTable": {
             "Type": "AWS::DynamoDB::Table",
             "Properties": {
                 "TableName": {
@@ -96,7 +96,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Task",
+                                    "Todo",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"
                                     },
@@ -110,7 +110,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Task",
+                                    "Todo",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"
                                     }
@@ -186,7 +186,7 @@
             },
             "DeletionPolicy": "Delete"
         },
-        "TaskIAMRole": {
+        "TodoIAMRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
                 "RoleName": {
@@ -196,7 +196,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Task",
+                                    "Todo",
                                     "role",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"
@@ -211,7 +211,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Task",
+                                    "Todo",
                                     "role",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"
@@ -263,7 +263,7 @@
                                                                 "Fn::Join": [
                                                                     "-",
                                                                     [
-                                                                        "Task",
+                                                                        "Todo",
                                                                         {
                                                                             "Ref": "GetAttGraphQLAPIApiId"
                                                                         },
@@ -277,7 +277,7 @@
                                                                 "Fn::Join": [
                                                                     "-",
                                                                     [
-                                                                        "Task",
+                                                                        "Todo",
                                                                         {
                                                                             "Ref": "GetAttGraphQLAPIApiId"
                                                                         }
@@ -300,7 +300,7 @@
                                                                 "Fn::Join": [
                                                                     "-",
                                                                     [
-                                                                        "Task",
+                                                                        "Todo",
                                                                         {
                                                                             "Ref": "GetAttGraphQLAPIApiId"
                                                                         },
@@ -314,7 +314,7 @@
                                                                 "Fn::Join": [
                                                                     "-",
                                                                     [
-                                                                        "Task",
+                                                                        "Todo",
                                                                         {
                                                                             "Ref": "GetAttGraphQLAPIApiId"
                                                                         }
@@ -408,17 +408,17 @@
                 ]
             }
         },
-        "TaskDataSource": {
+        "TodoDataSource": {
             "Type": "AWS::AppSync::DataSource",
             "Properties": {
                 "ApiId": {
                     "Ref": "GetAttGraphQLAPIApiId"
                 },
-                "Name": "TaskTable",
+                "Name": "TodoTable",
                 "Type": "AMAZON_DYNAMODB",
                 "ServiceRoleArn": {
                     "Fn::GetAtt": [
-                        "TaskIAMRole",
+                        "TodoIAMRole",
                         "Arn"
                     ]
                 },
@@ -433,7 +433,7 @@
                                 "Fn::Join": [
                                     "-",
                                     [
-                                        "Task",
+                                        "Todo",
                                         {
                                             "Ref": "GetAttGraphQLAPIApiId"
                                         },
@@ -447,7 +447,7 @@
                                 "Fn::Join": [
                                     "-",
                                     [
-                                        "Task",
+                                        "Todo",
                                         {
                                             "Ref": "GetAttGraphQLAPIApiId"
                                         }
@@ -494,10 +494,10 @@
                 }
             },
             "DependsOn": [
-                "TaskIAMRole"
+                "TodoIAMRole"
             ]
         },
-        "SyncTaskResolver": {
+        "SyncTodoResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -505,11 +505,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "TaskDataSource",
+                        "TodoDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "syncTasks",
+                "FieldName": "syncTodos",
                 "TypeName": "Query",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
@@ -526,7 +526,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "syncTasks",
+                                        "syncTodos",
                                         "req",
                                         "vtl"
                                     ]
@@ -550,7 +550,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "syncTasks",
+                                        "syncTodos",
                                         "res",
                                         "vtl"
                                     ]
@@ -561,7 +561,7 @@
                 }
             }
         },
-        "GetTaskResolver": {
+        "GetTodoResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -569,11 +569,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "TaskDataSource",
+                        "TodoDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "getTask",
+                "FieldName": "getTodo",
                 "TypeName": "Query",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
@@ -590,7 +590,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "getTask",
+                                        "getTodo",
                                         "req",
                                         "vtl"
                                     ]
@@ -614,7 +614,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "getTask",
+                                        "getTodo",
                                         "res",
                                         "vtl"
                                     ]
@@ -625,7 +625,7 @@
                 }
             }
         },
-        "ListTaskResolver": {
+        "ListTodoResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -633,11 +633,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "TaskDataSource",
+                        "TodoDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "listTasks",
+                "FieldName": "listTodos",
                 "TypeName": "Query",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
@@ -654,7 +654,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "listTasks",
+                                        "listTodos",
                                         "req",
                                         "vtl"
                                     ]
@@ -678,7 +678,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "listTasks",
+                                        "listTodos",
                                         "res",
                                         "vtl"
                                     ]
@@ -689,7 +689,7 @@
                 }
             }
         },
-        "CreateTaskResolver": {
+        "CreateTodoResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -697,11 +697,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "TaskDataSource",
+                        "TodoDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "createTask",
+                "FieldName": "createTodo",
                 "TypeName": "Mutation",
                 "SyncConfig": {
                     "ConflictDetection": "VERSION",
@@ -722,7 +722,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "createTask",
+                                        "createTodo",
                                         "req",
                                         "vtl"
                                     ]
@@ -746,7 +746,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "createTask",
+                                        "createTodo",
                                         "res",
                                         "vtl"
                                     ]
@@ -757,7 +757,7 @@
                 }
             }
         },
-        "UpdateTaskResolver": {
+        "UpdateTodoResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -765,11 +765,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "TaskDataSource",
+                        "TodoDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "updateTask",
+                "FieldName": "updateTodo",
                 "TypeName": "Mutation",
                 "SyncConfig": {
                     "ConflictDetection": "VERSION",
@@ -790,7 +790,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "updateTask",
+                                        "updateTodo",
                                         "req",
                                         "vtl"
                                     ]
@@ -814,7 +814,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "updateTask",
+                                        "updateTodo",
                                         "res",
                                         "vtl"
                                     ]
@@ -825,7 +825,7 @@
                 }
             }
         },
-        "DeleteTaskResolver": {
+        "DeleteTodoResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -833,11 +833,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "TaskDataSource",
+                        "TodoDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "deleteTask",
+                "FieldName": "deleteTodo",
                 "TypeName": "Mutation",
                 "SyncConfig": {
                     "ConflictDetection": "VERSION",
@@ -858,7 +858,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "deleteTask",
+                                        "deleteTodo",
                                         "req",
                                         "vtl"
                                     ]
@@ -882,7 +882,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "deleteTask",
+                                        "deleteTodo",
                                         "res",
                                         "vtl"
                                     ]
@@ -895,11 +895,11 @@
         }
     },
     "Outputs": {
-        "GetAttTaskTableStreamArn": {
+        "GetAttTodoTableStreamArn": {
             "Description": "Your DynamoDB table StreamArn.",
             "Value": {
                 "Fn::GetAtt": [
-                    "TaskTable",
+                    "TodoTable",
                     "StreamArn"
                 ]
             },
@@ -912,18 +912,18 @@
                                 "Ref": "AppSyncApiId"
                             },
                             "GetAtt",
-                            "TaskTable",
+                            "TodoTable",
                             "StreamArn"
                         ]
                     ]
                 }
             }
         },
-        "GetAttTaskDataSourceName": {
+        "GetAttTodoDataSourceName": {
             "Description": "Your model DataSource name.",
             "Value": {
                 "Fn::GetAtt": [
-                    "TaskDataSource",
+                    "TodoDataSource",
                     "Name"
                 ]
             },
@@ -936,17 +936,17 @@
                                 "Ref": "AppSyncApiId"
                             },
                             "GetAtt",
-                            "TaskDataSource",
+                            "TodoDataSource",
                             "Name"
                         ]
                     ]
                 }
             }
         },
-        "GetAttTaskTableName": {
+        "GetAttTodoTableName": {
             "Description": "Your DynamoDB table name.",
             "Value": {
-                "Ref": "TaskTable"
+                "Ref": "TodoTable"
             },
             "Export": {
                 "Name": {
@@ -957,7 +957,7 @@
                                 "Ref": "AppSyncApiId"
                             },
                             "GetAtt",
-                            "TaskTable",
+                            "TodoTable",
                             "Name"
                         ]
                     ]

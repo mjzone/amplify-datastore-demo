@@ -4,8 +4,8 @@ import { schema } from './schema';
 
 
 
-const { Task } = initSchema(schema);
+const { Todo } = initSchema(schema);
 
 export {
-  Task
+  Todo
 };

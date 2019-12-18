@@ -186,7 +186,7 @@
                         {
                             "Ref": "APIKeyExpirationEpoch"
                         },
-                        1577232891
+                        1577234381
                     ]
                 }
             },
@@ -216,7 +216,7 @@
                 }
             }
         },
-        "Task": {
+        "Todo": {
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
                 "Parameters": {
@@ -281,7 +281,7 @@
                                 "Ref": "S3DeploymentRootKey"
                             },
                             "stacks",
-                            "Task.json"
+                            "Todo.json"
                         ]
                     ]
                 }
@@ -333,7 +333,7 @@
             "DependsOn": [
                 "GraphQLAPI",
                 "GraphQLSchema",
-                "Task"
+                "Todo"
             ]
         }
     },
