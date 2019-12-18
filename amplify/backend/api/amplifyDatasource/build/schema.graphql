@@ -1,7 +1,6 @@
 type Task {
-  id: ID!
+  id: String!
   task: String!
-  isCompleted: Boolean
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
@@ -92,9 +91,8 @@ input ModelSizeInput {
 }
 
 input ModelTaskFilterInput {
-  id: ModelIDInput
+  id: ModelStringInput
   task: ModelStringInput
-  isCompleted: ModelBooleanInput
   and: [ModelTaskFilterInput]
   or: [ModelTaskFilterInput]
   not: ModelTaskFilterInput
@@ -109,14 +107,12 @@ type Query {
 input CreateTaskInput {
   id: ID
   task: String!
-  isCompleted: Boolean
   _version: Int
 }
 
 input UpdateTaskInput {
-  id: ID!
+  id: String!
   task: String
-  isCompleted: Boolean
   _version: Int
 }
 
@@ -133,7 +129,6 @@ type Mutation {
 
 input ModelTaskConditionInput {
   task: ModelStringInput
-  isCompleted: ModelBooleanInput
   and: [ModelTaskConditionInput]
   or: [ModelTaskConditionInput]
   not: ModelTaskConditionInput

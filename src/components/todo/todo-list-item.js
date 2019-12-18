@@ -9,10 +9,9 @@ export default class TodoListItem extends React.Component {
   }
 
   renderTaskSection() {
-    const { task, isCompleted } = this.props;
+    const { task } = this.props;
     const taskStyle = {
-      color: isCompleted ? "#2ecc71" : "#d35400",
-      textDecoration: isCompleted ? "line-through" : "",
+      color: "#d35400",
       fontSize: "20px",
       cursor: "pointer"
     };
@@ -25,14 +24,7 @@ export default class TodoListItem extends React.Component {
         </td>
       );
     }
-    return (
-      <td
-        style={taskStyle}
-        onClick={this.props.toggleTask.bind(this, this.props)}
-      >
-        {task}
-      </td>
-    );
+    return <td style={taskStyle}>{task}</td>;
   }
 
   renderActionSection() {
@@ -43,20 +35,10 @@ export default class TodoListItem extends React.Component {
     if (this.state.isEditing) {
       return (
         <td>
-          <button
-            style={style}
-            type="button"
-            className="success button"
-            onClick={this.onSaveClick.bind(this)}
-          >
+          <button style={style} type="button" className="success button" onClick={this.onSaveClick.bind(this)}>
             Save
           </button>
-          <button
-            style={style}
-            type="button"
-            className="secondary button"
-            onClick={this.onCancelClick.bind(this)}
-          >
+          <button style={style} type="button" className="secondary button" onClick={this.onCancelClick.bind(this)}>
             Cancel
           </button>
         </td>
@@ -64,21 +46,11 @@ export default class TodoListItem extends React.Component {
     }
     return (
       <td>
-        <button
-          style={style}
-          type="button"
-          className="button"
-          onClick={this.onEditClick.bind(this)}
-        >
+        <button style={style} type="button" className="button" onClick={this.onEditClick.bind(this)}>
           {" "}
           Edit{" "}
         </button>
-        <button
-          style={style}
-          type="button"
-          className="alert button"
-          onClick={this.onDeleteClick.bind(this)}
-        >
+        <button style={style} type="button" className="alert button" onClick={this.onDeleteClick.bind(this)}>
           {" "}
           Delete{" "}
         </button>
@@ -105,14 +77,14 @@ export default class TodoListItem extends React.Component {
 
   onSaveClick(e) {
     e.preventDefault();
-    const oldTask = this.props;
-    const newTask = this.refs.editInput.value;
-    this.props.saveTask(oldTask, newTask);
+    const todoId = this.props.id;
+    const todoText = this.refs.editInput.value;
+    this.props.updateTodo(todoId, todoText);
     this.setState({ isEditing: false });
   }
 
   onDeleteClick(e) {
     e.preventDefault();
-    this.props.deleteTask(this.props);
+    this.props.deleteTodo(this.props);
   }
 }

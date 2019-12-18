@@ -6,11 +6,7 @@ export default class CreateTodo extends React.Component {
       <form onSubmit={this.handleCreate.bind(this)}>
         <div>
           <div className="row large-6 large-offset-3 medium-6 medium-offset-3 small-6 small-offset-3 columns">
-            <input
-              type="text"
-              placeholder="Type your task here"
-              ref="createInput"
-            />
+            <input type="text" placeholder="Type your task here" ref="createInput" />
           </div>
           <div className="row large-6 large-offset-3 medium-6 medium-offset-3 small-6 small-offset-3 columns">
             <button className="expanded secondary button">+ Add Item</button>
@@ -24,10 +20,9 @@ export default class CreateTodo extends React.Component {
     e.preventDefault();
     const createInput = this.refs.createInput;
     if (createInput.value.length) {
-      this.props.createTask({
+      this.props.createTodo({
         id: this.guid(),
-        task: createInput.value,
-        isCompleted: false
+        task: createInput.value
       });
       this.refs.createInput.value = "";
     }
@@ -39,19 +34,6 @@ export default class CreateTodo extends React.Component {
         .toString(16)
         .substring(1);
     }
-    return (
-      s4() +
-      s4() +
-      "-" +
-      s4() +
-      "-" +
-      s4() +
-      "-" +
-      s4() +
-      "-" +
-      s4() +
-      s4() +
-      s4()
-    );
+    return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
   }
 }

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import _ from "lodash";
 import CreateTodo from "./todo/create-todo";
 import TodoList from "./todo/todo-list";
-
 //import { withAuthenticator } from "aws-amplify-react";
 import { DataStore, Predicates } from "@aws-amplify/datastore";
 import { Task } from "../models";
@@ -24,7 +23,15 @@ export default class TodoComponent extends Component {
 
   async loadTasks() {
     let self = this;
-    let todos = await DataStore.query(Task);
+
+    // Load todos from DataStore
+    let dataStoreItems = await DataStore.query(Task);
+    let todos = _.map(dataStoreItems, item => {
+      return {
+        id: item.id,
+        task: item.task
+      };
+    });
     self.setState({ todos });
   }
 
@@ -47,65 +54,52 @@ export default class TodoComponent extends Component {
         <div className="row large-6 large-offset-5 medium-6 medium-offset-5 small-6 small-offset-5 columns">
           <h3>My Todo List</h3>
         </div>
-        <CreateTodo createTask={this.createTask.bind(this)} />
+        <CreateTodo createTodo={this.createTodo.bind(this)} />
         <TodoList
           todos={this.state.todos}
-          toggleTask={this.toggleTask.bind(this)}
-          update={this.update.bind(this)}
-          delete={this.delete.bind(this)}
+          updateTodo={this.updateTodo.bind(this)}
+          deleteTodo={this.deleteTodo.bind(this)}
         />
       </div>
     );
   }
 
-  async createTask(task) {
+  async createTodo(task) {
     let self = this;
+
+    // Create todo in DataStore
+    const newTodo = await DataStore.save(
+      new Task({
+        task: task.task
+      })
+    );
+    task.id = newTodo[0].id;
     self.state.todos.unshift(task);
     self.setState({ todos: self.state.todos });
-    await DataStore.save(
-      new Task({
-        task: task.task,
-        isCompleted: task.isCompleted
-      })
-    );
   }
 
-  // async toggleTask(task) {
-  //   var foundTodo = _.find(this.state.todos, todo => todo.id === task.id);
-  //   foundTodo.isCompleted = !foundTodo.isCompleted;
-  //   this.setState({ todos: this.state.todos });
-
-  //   const original = await DataStore.query(Task, task.id);
-  //   await DataStore.save(
-  //     Task.copyOf(original, updated => {
-  //       updated.isCompleted = foundTodo.isCompleted;
-  //     })
-  //   );
-  // }
-
-  async saveTask(oldTask, newTask) {
+  async updateTodo(todoId, todoText) {
     let self = this;
-    let foundTodo = _.find(self.state.todos, todo => todo.id === oldTask.id);
-    foundTodo.task = newTask;
+    let todo = _.find(self.state.todos, todo => todo.id === todoId);
+    todo.task = todoText;
     self.setState({ todos: self.state.todos });
-    const original = await DataStore.query(Task, oldTask.id);
+
+    // Update DataStore
+    const original = await DataStore.query(Task, todoId);
     await DataStore.save(
       Task.copyOf(original, updated => {
-        updated.task = foundTodo.task;
-        updated.isCompleted = foundTodo.isCompleted;
+        updated.task = todoText;
       })
     );
   }
 
-  deleteTask(taskToDelete) {
+  async deleteTodo(deleteTodo) {
     let self = this;
-    _.remove(self.state.todos, todo => todo.id === taskToDelete.id);
+    _.remove(self.state.todos, todo => todo.id === deleteTodo.id);
     self.setState({ todos: self.state.todos });
-    // axios
-    //   .delete(BASE_URL + "/todos/delete/" + taskToDelete.id)
-    //   .then(function(response) {})
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
+
+    // Remove from DataStore
+    const todelete = await DataStore.query(Task, deleteTodo.id);
+    DataStore.delete(todelete);
   }
 }

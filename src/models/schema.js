@@ -24,17 +24,10 @@ export const schema = {
                     "type": "String",
                     "isRequired": true,
                     "attributes": []
-                },
-                "isCompleted": {
-                    "name": "isCompleted",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
                 }
             }
         }
     },
     "enums": {},
-    "version": "2e8d4a9e7aef71d039adc90954344fb3"
+    "version": "f9e2a6e2e7a3f0284642c4f9d2864b89"
 };
