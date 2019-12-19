@@ -13,26 +13,25 @@ export default class TodoComponent extends Component {
     this.state = {
       todos
     };
-    this.init = this.init.bind(this);
   }
 
   componentDidMount() {
     // this.loadTasks();
   }
 
-  async loadTasks() {
-    let self = this;
+  // async loadTasks() {
+  //   let self = this;
 
-    // Load todos from DataStore
-    let dataStoreItems = await DataStore.query(Todo);
-    let todos = _.map(dataStoreItems, item => {
-      return {
-        id: item.id,
-        task: item.task
-      };
-    });
-    self.setState({ todos });
-  }
+  //   // Load todos from DataStore
+  //   let dataStoreItems = await DataStore.query(Todo);
+  //   let todos = _.map(dataStoreItems, item => {
+  //     return {
+  //       id: item.id,
+  //       task: item.task
+  //     };
+  //   });
+  //   self.setState({ todos });
+  // }
 
   // subscibeForNewTasks() {
   //   DataStore.observe(Todo).subscribe(task => {
