@@ -1,20 +1,26 @@
 {
-  "api": {
-    "amplifyDatasource": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "output": {
-        "authConfig": {
-          "additionalAuthenticationProviders": [],
-          "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "description": "",
-              "apiKeyExpirationDays": 7
-            }
-          }
-        }
-      }
-    }
-  }
+	"api": {
+		"amplifyDatasource": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [],
+					"defaultAuthentication": {
+						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
+						"userPoolConfig": {
+							"userPoolId": "authtodoapp6550323b"
+						}
+					}
+				}
+			}
+		}
+	},
+	"auth": {
+		"todoapp6550323b": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	}
 }

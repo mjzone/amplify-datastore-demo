@@ -168,7 +168,16 @@
                         }
                     ]
                 },
-                "AuthenticationType": "API_KEY"
+                "AuthenticationType": "AMAZON_COGNITO_USER_POOLS",
+                "UserPoolConfig": {
+                    "UserPoolId": {
+                        "Ref": "AuthCognitoUserPoolId"
+                    },
+                    "AwsRegion": {
+                        "Ref": "AWS::Region"
+                    },
+                    "DefaultAction": "ALLOW"
+                }
             }
         },
         "GraphQLAPIKey": {
@@ -186,7 +195,7 @@
                         {
                             "Ref": "APIKeyExpirationEpoch"
                         },
-                        1577234381
+                        1577320884
                     ]
                 }
             },

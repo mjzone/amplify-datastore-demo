@@ -705,7 +705,7 @@
                 "TypeName": "Mutation",
                 "SyncConfig": {
                     "ConflictDetection": "VERSION",
-                    "ConflictHandler": "AUTOMERGE"
+                    "ConflictHandler": "OPTIMISTIC_CONCURRENCY"
                 },
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
@@ -773,7 +773,7 @@
                 "TypeName": "Mutation",
                 "SyncConfig": {
                     "ConflictDetection": "VERSION",
-                    "ConflictHandler": "AUTOMERGE"
+                    "ConflictHandler": "OPTIMISTIC_CONCURRENCY"
                 },
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
@@ -841,7 +841,7 @@
                 "TypeName": "Mutation",
                 "SyncConfig": {
                     "ConflictDetection": "VERSION",
-                    "ConflictHandler": "AUTOMERGE"
+                    "ConflictHandler": "OPTIMISTIC_CONCURRENCY"
                 },
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
