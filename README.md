@@ -1,68 +1,60 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Amplify DataStore Demo
 
-## Available Scripts
+- Amplify DataStore is an on device persistent repository for interacting with your local data while it synchronizes with the cloud. The core idea is to focus on your data modeling in your application with GraphQL, adding any authorization rules or business logic into your application when needed. Starting with GraphQL schema (with or without an AWS account) a code generation process creates Models which are domain native constructs for a programming platform (TypeScript, Java, Swift classes).
 
-In the project directory, you can run:
+- Once Models have been generated, you can operate on these instances with the DataStore API to save, query, update, delete, or observe changes.
 
-### `yarn start`
+- At runtime models are passed into a Storage Engine that has a Storage Adapter.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- The Storage Engine manages a “Model Repository” of Models which were defined by the developer’s GraphQL schema as well as “System Models” which are used for both metadata (such as settings) and queueing updates over the network when syncing to the cloud.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- Amplify ships with default Storage Adapter implementations, such as SQLite and IndexedDB, however the pattern allows for more in the future for community contributions and is not specific to one technology (e.g. SQL vs NoSQL).
 
-### `yarn test`
+### Steps followed in the Demo
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### 1. Install latest amplify CLI
 
-### `yarn build`
+- npm i -g @aws-amplify/cli@latest
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 2. Use NPM Script to bootstrap project without AWS
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- npx amplify-app@latest
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 3. Generate Models
 
-### `yarn eject`
+- amplify codegen models
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### 4. Install DataStore Dependencies
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- npm i @aws-amplify/core @aws-amplify/datastore
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### 5. Import DataStore Dependencies
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+import Amplify from "@aws-amplify/core";
+import { DataStore, Predicates } from "@aws-amplify/datastore";
+import { Post, PostStatus } from "./models";
+```
 
-## Learn More
+#### 6. Sync with Cloud
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- You can use `npm run amplify-push` but it uses API key authorization for AppSync
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- In order to use Cognito User Pool for Authorization update API category
 
-### Code Splitting
+- Finally `amplify push` to create resources in AWS
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+#### 7. Configure application to use Amplify
 
-### Analyzing the Bundle Size
+- npm i @aws-amplify/auth @aws-amplify/api aws-amplify-react
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```
+import Auth from "@aws-amplify/auth";
+import API from "@aws-amplify/api";
+import awsconfig from "./aws-exports";
+import { withAuthenticator } from "aws-amplify-react";
 
-### Making a Progressive Web App
+Auth.configure(awsconfig);
+API.configure(awsconfig);
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```
