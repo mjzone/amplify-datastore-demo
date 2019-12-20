@@ -1,5 +1,9 @@
 ## Amplify DataStore Demo
 
+![storage-image](https://user-images.githubusercontent.com/2338919/71253180-234e2800-234d-11ea-8ffe-35697f0f67f8.png)
+
+(Image Reference - Amplify Documentation)
+
 - Amplify DataStore is an on device persistent repository for interacting with your local data while it synchronizes with the cloud. The core idea is to focus on your data modeling in your application with GraphQL, adding any authorization rules or business logic into your application when needed. Starting with GraphQL schema (with or without an AWS account) a code generation process creates Models which are domain native constructs for a programming platform (TypeScript, Java, Swift classes).
 
 - Once Models have been generated, you can operate on these instances with the DataStore API to save, query, update, delete, or observe changes.
