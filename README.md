@@ -10,6 +10,8 @@
 
 - Amplify ships with default Storage Adapter implementations, such as SQLite and IndexedDB, however the pattern allows for more in the future for community contributions and is not specific to one technology (e.g. SQL vs NoSQL).
 
+- For more information check Amplify DataStore [Documentation](https://aws-amplify.github.io/docs/js/datastore)
+
 ### Steps followed in the Demo
 
 #### 1. Install latest amplify CLI
@@ -20,41 +22,54 @@
 
 - npx amplify-app@latest
 
-#### 3. Generate Models
+#### 3. Create a GraphQL Type
+
+```
+type Todo @model {
+  id: ID!
+  task: String!
+}
+```
+
+#### 4. Generate Models
 
 - amplify codegen models
 
-#### 4. Install DataStore Dependencies
+#### 5. Install DataStore Dependencies
 
 - npm i @aws-amplify/core @aws-amplify/datastore
 
-#### 5. Import DataStore Dependencies
+#### 6. Import DataStore Dependencies
 
 ```
 import Amplify from "@aws-amplify/core";
 import { DataStore, Predicates } from "@aws-amplify/datastore";
-import { Post, PostStatus } from "./models";
+import { Todo } from "../models";
 ```
 
-#### 6. Sync with Cloud
+#### 7. Sync with AWS Cloud
 
 - You can use `npm run amplify-push` but it uses API key authorization for AppSync
 
 - In order to use Cognito User Pool for Authorization update API category
 
-- Finally `amplify push` to create resources in AWS
+- amplify init
 
-#### 7. Configure application to use Amplify
+- amplify status
 
-- npm i @aws-amplify/auth @aws-amplify/api aws-amplify-react
+- amplify api update
+
+* Finally `amplify push` to create resources in AWS
+
+#### 8. Configure application to use Amplify
+
+- npm i aws-amplify aws-amplify-react
 
 ```
-import Auth from "@aws-amplify/auth";
-import API from "@aws-amplify/api";
+import Amplify from "aws-amplify";
 import awsconfig from "./aws-exports";
 import { withAuthenticator } from "aws-amplify-react";
 
-Auth.configure(awsconfig);
-API.configure(awsconfig);
+Amplify.configure(awsconfig);
 
 ```
