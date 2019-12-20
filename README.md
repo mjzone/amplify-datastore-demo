@@ -1,6 +1,6 @@
 ## Amplify DataStore Demo
 
-![storage-image](https://user-images.githubusercontent.com/2338919/71253180-234e2800-234d-11ea-8ffe-35697f0f67f8.png)
+![storage-image](https://aws-amplify.github.io/docs/images/sync.png)
 
 (Image Reference - Amplify Documentation)
 
