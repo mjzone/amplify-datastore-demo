@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import _ from "lodash";
 import CreateTodo from "./todo/create-todo";
 import TodoList from "./todo/todo-list";
-// import { DataStore, Predicates } from "@aws-amplify/datastore";
-// import { Todo } from "../models";
+import { DataStore, Predicates } from "@aws-amplify/datastore";
+import { Todo } from "../models";
 
 var todos = [];
 
@@ -16,22 +16,22 @@ export default class TodoComponent extends Component {
   }
 
   componentDidMount() {
-    // this.loadTasks();
+    this.loadTasks();
   }
 
-  // async loadTasks() {
-  //   let self = this;
+  async loadTasks() {
+    let self = this;
 
-  //   // Load todos from DataStore
-  //   let dataStoreItems = await DataStore.query(Todo);
-  //   let todos = _.map(dataStoreItems, item => {
-  //     return {
-  //       id: item.id,
-  //       task: item.task
-  //     };
-  //   });
-  //   self.setState({ todos });
-  // }
+    // Load todos from DataStore
+    let dataStoreItems = await DataStore.query(Todo);
+    let todos = _.map(dataStoreItems, item => {
+      return {
+        id: item.id,
+        task: item.task
+      };
+    });
+    self.setState({ todos });
+  }
 
   // subscibeForNewTasks() {
   //   DataStore.observe(Todo).subscribe(task => {
@@ -61,13 +61,12 @@ export default class TodoComponent extends Component {
     let self = this;
 
     // Create todo in DataStore
-    // const newTodo = await DataStore.save(
-    //   new Todo({
-    //     task: task.task
-    //   })
-    // );
-    // task.id = newTodo[0].id;
-    task.id = task.id;
+    const newTodo = await DataStore.save(
+      new Todo({
+        task: task.task
+      })
+    );
+    task.id = newTodo[0].id;
     self.state.todos.unshift(task);
     self.setState({ todos: self.state.todos });
   }
@@ -79,12 +78,12 @@ export default class TodoComponent extends Component {
     self.setState({ todos: self.state.todos });
 
     // Update DataStore
-    // const original = await DataStore.query(Todo, todoId);
-    // await DataStore.save(
-    //   Todo.copyOf(original, updated => {
-    //     updated.task = todoText;
-    //   })
-    // );
+    const original = await DataStore.query(Todo, todoId);
+    await DataStore.save(
+      Todo.copyOf(original, updated => {
+        updated.task = todoText;
+      })
+    );
   }
 
   async deleteTodo(deleteTodo) {
@@ -93,7 +92,7 @@ export default class TodoComponent extends Component {
     self.setState({ todos: self.state.todos });
 
     // Remove from DataStore
-    // const todelete = await DataStore.query(Todo, deleteTodo.id);
-    // DataStore.delete(todelete);
+    const todelete = await DataStore.query(Todo, deleteTodo.id);
+    DataStore.delete(todelete);
   }
 }
