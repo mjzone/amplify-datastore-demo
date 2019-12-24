@@ -3,7 +3,7 @@ import _ from "lodash";
 import CreateTodo from "./todo/create-todo";
 import TodoList from "./todo/todo-list";
 import { DataStore, Predicates } from "@aws-amplify/datastore";
-import { Todo } from "../models";
+import { Todo, TodoStatus } from "../models";
 
 var todos = [];
 
@@ -27,7 +27,8 @@ export default class TodoComponent extends Component {
     let todos = _.map(dataStoreItems, item => {
       return {
         id: item.id,
-        task: item.task
+        task: item.task,
+        status: item.status
       };
     });
     self.setState({ todos });
@@ -52,6 +53,7 @@ export default class TodoComponent extends Component {
           todos={this.state.todos}
           updateTodo={this.updateTodo.bind(this)}
           deleteTodo={this.deleteTodo.bind(this)}
+          completeTodo={this.completeTodo.bind(this)}
         />
       </div>
     );
@@ -63,7 +65,8 @@ export default class TodoComponent extends Component {
     // Create todo in DataStore
     const newTodo = await DataStore.save(
       new Todo({
-        task: task.task
+        task: task.task,
+        status: TodoStatus.INPROGRESS
       })
     );
     task.id = newTodo[0].id;
@@ -94,5 +97,20 @@ export default class TodoComponent extends Component {
     // Remove from DataStore
     const todelete = await DataStore.query(Todo, deleteTodo.id);
     DataStore.delete(todelete);
+  }
+
+  async completeTodo(todoId) {
+    let self = this;
+    let todo = _.find(self.state.todos, todo => todo.id === todoId);
+    todo.status = TodoStatus.COMPLETED;
+    self.setState({ todos: self.state.todos });
+
+    // Update DataStore
+    const original = await DataStore.query(Todo, todoId);
+    await DataStore.save(
+      Todo.copyOf(original, updated => {
+        updated.status = TodoStatus.COMPLETED;
+      })
+    );
   }
 }

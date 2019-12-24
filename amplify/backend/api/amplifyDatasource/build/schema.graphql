@@ -1,6 +1,12 @@
+enum TodoStatus {
+  COMPLETED
+  INPROGRESS
+}
+
 type Todo {
   id: ID!
   task: String!
+  status: TodoStatus!
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
@@ -90,9 +96,15 @@ input ModelSizeInput {
   between: [Int]
 }
 
+input ModelTodoStatusInput {
+  eq: TodoStatus
+  ne: TodoStatus
+}
+
 input ModelTodoFilterInput {
   id: ModelIDInput
   task: ModelStringInput
+  status: ModelTodoStatusInput
   and: [ModelTodoFilterInput]
   or: [ModelTodoFilterInput]
   not: ModelTodoFilterInput
@@ -107,12 +119,14 @@ type Query {
 input CreateTodoInput {
   id: ID
   task: String!
+  status: TodoStatus!
   _version: Int
 }
 
 input UpdateTodoInput {
   id: ID!
   task: String
+  status: TodoStatus
   _version: Int
 }
 
@@ -129,6 +143,7 @@ type Mutation {
 
 input ModelTodoConditionInput {
   task: ModelStringInput
+  status: ModelTodoStatusInput
   and: [ModelTodoConditionInput]
   or: [ModelTodoConditionInput]
   not: ModelTodoConditionInput

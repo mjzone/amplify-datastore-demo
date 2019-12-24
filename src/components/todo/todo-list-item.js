@@ -1,4 +1,5 @@
 import React from "react";
+import { TodoStatus } from "../../models";
 
 export default class TodoListItem extends React.Component {
   constructor(props) {
@@ -9,9 +10,11 @@ export default class TodoListItem extends React.Component {
   }
 
   renderTaskSection() {
-    const { task } = this.props;
+    const { task, status } = this.props;
+    debugger;
     const taskStyle = {
-      color: "#d35400",
+      color: status === TodoStatus.COMPLETED ? "#2ecc71" : "#d35400",
+      textDecoration: status === TodoStatus.COMPLETED ? "line-through" : "",
       fontSize: "20px",
       cursor: "pointer"
     };
@@ -24,7 +27,11 @@ export default class TodoListItem extends React.Component {
         </td>
       );
     }
-    return <td style={taskStyle}>{task}</td>;
+    return (
+      <td style={taskStyle} onClick={this.onCompleteTodoClick.bind(this)}>
+        {task}
+      </td>
+    );
   }
 
   renderActionSection() {
@@ -86,5 +93,11 @@ export default class TodoListItem extends React.Component {
   onDeleteClick(e) {
     e.preventDefault();
     this.props.deleteTodo(this.props);
+  }
+
+  onCompleteTodoClick(e) {
+    e.preventDefault();
+    const todoId = this.props.id;
+    this.props.completeTodo(todoId);
   }
 }

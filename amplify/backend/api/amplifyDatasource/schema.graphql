@@ -1,4 +1,10 @@
+enum TodoStatus {
+  COMPLETED
+  INPROGRESS
+}
+
 type Todo @model {
   id: ID!
   task: String!
+  status: TodoStatus!
 }
