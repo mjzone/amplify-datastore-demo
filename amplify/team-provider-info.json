@@ -1,0 +1,20 @@
+{
+    "youtube": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-todo-app-youtube-75210-authRole",
+            "UnauthRoleArn": "arn:aws:iam::885121665536:role/amplify-todo-app-youtube-75210-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::885121665536:role/amplify-todo-app-youtube-75210-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-todo-app-youtube-75210-deployment",
+            "UnauthRoleName": "amplify-todo-app-youtube-75210-unauthRole",
+            "StackName": "amplify-todo-app-youtube-75210",
+            "StackId": "arn:aws:cloudformation:us-east-1:885121665536:stack/amplify-todo-app-youtube-75210/0aea81f0-29e2-11ea-86b9-0e1b8dfea4f7",
+            "AmplifyAppId": "dn94m0dvtl1og"
+        },
+        "categories": {
+            "auth": {
+                "todoappc3bcc904": {}
+            }
+        }
+    }
+}

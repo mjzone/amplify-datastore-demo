@@ -11,7 +11,6 @@ export default class TodoListItem extends React.Component {
 
   renderTaskSection() {
     const { task, status } = this.props;
-    debugger;
     const taskStyle = {
       color: status === TodoStatus.COMPLETED ? "#2ecc71" : "#d35400",
       textDecoration: status === TodoStatus.COMPLETED ? "line-through" : "",

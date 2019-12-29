@@ -1,0 +1,62 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "amplify-todo-app-youtube-75210-authRole",
+			"UnauthRoleArn": "arn:aws:iam::885121665536:role/amplify-todo-app-youtube-75210-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::885121665536:role/amplify-todo-app-youtube-75210-authRole",
+			"Region": "us-east-1",
+			"DeploymentBucketName": "amplify-todo-app-youtube-75210-deployment",
+			"UnauthRoleName": "amplify-todo-app-youtube-75210-unauthRole",
+			"StackName": "amplify-todo-app-youtube-75210",
+			"StackId": "arn:aws:cloudformation:us-east-1:885121665536:stack/amplify-todo-app-youtube-75210/0aea81f0-29e2-11ea-86b9-0e1b8dfea4f7",
+			"AmplifyAppId": "dn94m0dvtl1og"
+		}
+	},
+	"api": {
+		"amplifyDatasource": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [],
+					"defaultAuthentication": {
+						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
+						"userPoolConfig": {
+							"userPoolId": "authtodoappc3bcc904"
+						}
+					}
+				},
+				"GraphQLAPIIdOutput": "ct3rksb2m5aytjvy73pjtdcmfa",
+				"GraphQLAPIEndpointOutput": "https://hlirkx7fjbh25kjnrdrqv55moe.appsync-api.us-east-1.amazonaws.com/graphql"
+			},
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-todo-app-youtube-75210-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"logicalId": "apiamplifyDatasource"
+			},
+			"lastPushTimeStamp": "2019-12-29T02:30:06.047Z",
+			"lastPushDirHash": "Gm5ciYGYXdVJYPM+puU6xewXz5w="
+		}
+	},
+	"auth": {
+		"todoappc3bcc904": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-todo-app-youtube-75210-deployment/amplify-cfn-templates/auth/todoappc3bcc904-cloudformation-template.yml",
+				"logicalId": "authtodoappc3bcc904"
+			},
+			"lastPushTimeStamp": "2019-12-29T02:30:06.047Z",
+			"output": {
+				"AppClientSecret": "qn1g3lqf364r5maie1j9j9ff8q5feg76gn9n8a6hnmac73i4rn",
+				"UserPoolId": "us-east-1_PVg16MAvR",
+				"AppClientIDWeb": "2bjfkb6mjm7gpl7jia8iffb61p",
+				"AppClientID": "plahev0s1cmgsrovbpjs1rjpr",
+				"IdentityPoolId": "us-east-1:812be37b-ec2e-46ff-8be7-2fecaa4a1c04",
+				"IdentityPoolName": "todoappc3bcc904_identitypool_c3bcc904__youtube",
+				"UserPoolName": "todoappc3bcc904_userpool_c3bcc904"
+			},
+			"lastPushDirHash": "xGcoc1b9cXeQ3+aB6ksHXK+d1Bg="
+		}
+	}
+}

@@ -1,0 +1,7 @@
+{
+    "youtube": {
+        "configLevel": "project",
+        "useProfile": true,
+        "profileName": "youtube"
+    }
+}
